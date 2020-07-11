@@ -5,7 +5,7 @@ import InputSolve from './InputSolve';
 
 class Solution extends Component {
     static navigationOptions = {
-        title: 'Solution',
+        title: 'Sudoku Solver',
     };
 
     render() {
