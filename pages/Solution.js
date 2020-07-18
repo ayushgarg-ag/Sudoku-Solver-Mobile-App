@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import Sudoku from '../Sudoku';
 import InputSolve from './InputSolve';
+import { HeaderBackButton } from 'react-navigation-stack';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -18,6 +19,14 @@ var gridWidth = screenWidth / 10;
 class Solution extends Component {
     static navigationOptions = {
         title: 'Sudoku Solver',
+        headerStyle: { backgroundColor: '#226897' },
+        headerTitleStyle: {
+            fontWeight: 'bold',
+            fontSize: 20,
+            color: 'white',
+        },
+        headerBackTitle: 'Input',
+        headerBackTitleStyle: { color: 'white', fontWeight: 'bold' },
     };
 
     render() {

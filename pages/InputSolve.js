@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, StyleSheet, Text, Button, TouchableOpacity, Dimensions } from 'react-native';
 import { ToggleButtonGroup } from 'react-bootstrap';
 import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Octicons';
 
 
 const screenWidth = Math.round(Dimensions.get('window').width);
@@ -18,7 +19,21 @@ var delay = ms => new Promise(res => setTimeout(res, ms));
 
 var gridWidth = screenWidth / 10;
 
+const MenuIcon = ({ navigation }) => <Icon 
+    name='three-bars' 
+    size={30} 
+    color='white' 
+    style={{ paddingLeft: 10 }}
+    // onPress={navigation.openDrawer()}
+/>;
+
+
+
 class InputSolve extends Component {
+
+    static navigationOptions = {
+        headerStyle: { backgroundColor: '#226897' },
+    }; 
 
     constructor(props) {
         super(props);
@@ -125,10 +140,6 @@ class InputSolve extends Component {
             });
         }
     }
-
-    navigationOptions = {
-        title: 'Sudoku Solver Input',
-    };
 
     render() {
         const { navigate } = this.props.navigation;
