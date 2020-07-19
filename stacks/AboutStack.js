@@ -6,9 +6,9 @@ import Header from '../header';
 
 //import all the screens we are going to switch 
 const AboutStack = createStackNavigator({
-  
+
   //Constant which holds all the screens like index of any book 
-  About: { 
+  About: {
     screen: About,
     navigationOptions: ({ navigation }) => {
       return {
@@ -16,7 +16,6 @@ const AboutStack = createStackNavigator({
       }
     },
   },
-  
-}
-);
+
+});
 export default AboutStack;

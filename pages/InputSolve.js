@@ -3,38 +3,21 @@ import { View, TextInput, StyleSheet, Text, Button, TouchableOpacity, Dimensions
 import { ToggleButtonGroup } from 'react-bootstrap';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Octicons';
+import * as ScreenOrientation from 'expo-screen-orientation';
 
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
-var size;
-if (screenWidth > screenHeight) {
-    size = screenHeight / 10;
-}
-else {
-    size = screenWidth / 10;
-}
 
-var delay = ms => new Promise(res => setTimeout(res, ms));
-
-var gridWidth = screenWidth / 10;
-
-const MenuIcon = ({ navigation }) => <Icon 
-    name='three-bars' 
-    size={30} 
-    color='white' 
-    style={{ paddingLeft: 10 }}
-    // onPress={navigation.openDrawer()}
-/>;
-
-
+// const MenuIcon = ({ navigation }) => <Icon
+//     name='three-bars'
+//     size={30}
+//     color='white'
+//     style={{ paddingLeft: 10 }}
+// // onPress={navigation.openDrawer()}
+// />;
 
 class InputSolve extends Component {
-
-    static navigationOptions = {
-        headerStyle: { backgroundColor: '#226897' },
-    }; 
-
     constructor(props) {
         super(props);
         this.state = {};
@@ -42,9 +25,17 @@ class InputSolve extends Component {
             this.state[i] = '';
         }
         this.focusedItem = null;
-        this.history = [];
-        this.historyIndex = 0;
+        this.history = [''];
+        this.historyIndex = 1;
         this.redoArray = [];
+    }
+
+    static navigationOptions = {
+        headerStyle: { backgroundColor: '#226897' },
+    };
+
+    async componentDidMount() {
+        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
     }
 
     handleFocusedItem = (propertyName, event) => {
@@ -70,29 +61,25 @@ class InputSolve extends Component {
         const numberToEnter = propertyName;
         if (this.focusedItem != null) {
             this.setState({ [`${this.focusedItem}`]: numberToEnter });
-            this['item-' + this.focusedItem].setNativeProps({
-                style: {
-                    color: '#226897',
-                    backgroundColor: '#bbe1fa'
-                }
-            });
-            // this.history.push([this.focusedItem, numberToEnter]);
             this.history[this.historyIndex] = [this.focusedItem, numberToEnter];
             this.historyIndex++;
         }
     }
 
     handleUndo = () => {
-        if (this.historyIndex != 0) {
+        if (this.historyIndex > 0) {
             this.historyIndex--;
             var lastChange = this.history[this.historyIndex];
             var id = lastChange[0];
 
             this.redoArray.push(lastChange);
 
-            for (let i = this.historyIndex - 1; i >= 0; i--) {
+            for (let i = this.historyIndex; i >= 0; i--) {
                 if (this.history[i][0] == id) {
                     this.setState({ [`${id}`]: this.history[i][1] });
+                }
+                else {
+                    this.setState({ [`${id}`]: '' });
                 }
             }
         }
@@ -115,18 +102,17 @@ class InputSolve extends Component {
         this.setState({ [`${gridItem}`]: value });
     }
 
-    handleRestart = () => {
+    handleClear = () => {
         for (var i = 0; i < 81; i++) {
             this.setState({ [`${i}`]: '' });
             this['item-' + i].setNativeProps({
                 style: {
-                    backgroundColor: '#226897',
                     color: '#bbe1fa',
                 }
             });
         }
-        this.history = [];
-        this.historyIndex = 0;
+        this.history = [''];
+        this.historyIndex = 1;
     }
 
     handleDelete = () => {
@@ -134,7 +120,6 @@ class InputSolve extends Component {
             this.setState({ [`${this.focusedItem}`]: '' });
             this['item-' + this.focusedItem].setNativeProps({
                 style: {
-                    backgroundColor: '#226897',
                     color: '#bbe1fa',
                 }
             });
@@ -175,31 +160,23 @@ class InputSolve extends Component {
         for (let i = 1; i < 10; i++) {
             i = i.toString();
             numbers.push(
-                // <TouchableOpacity
-                //     onPress={() =>
-                //         navigate('Solution', {
-                //             JSON_ListView_Clicked_Item: this.state,
-                //         })
-                //     }
-                //     key={i + 'touch'}
-                //     style={componentStyles.numberInput}
-                // >
                 <TextInput
                     key={'num' + i}
                     name={'num' + i}
                     value={i}
-                    // onChange={this.handleChange.bind(this, (i).toString())}
                     style={componentStyles.numberInput}
                     caretHidden={true}
                     onFocus={this.handleFocusedNumber.bind(this, (i).toString())}
                 />
-                // </TouchableOpacity>
             );
         }
 
         return (
 
             <View style={containerStyles.container}>
+
+                <View style={containerStyles.headerFiller}>
+                </View>
 
                 <View style={containerStyles.gridContainer}>
                     {grid}
@@ -211,15 +188,15 @@ class InputSolve extends Component {
                 </View>
 
                 <View style={containerStyles.allButtonsContainer}>
-                    <View style={componentStyles.delRestartButtonsContainer}>
+                    <View style={componentStyles.delClearButtonsContainer}>
                         <View style={componentStyles.mainButtons}>
-                                <Text onPress={this.handleDelete} style={componentStyles.buttonText}>Delete</Text>
+                            <Text onPress={this.handleDelete} style={componentStyles.buttonText}>Delete</Text>
                         </View>
 
                         <View style={componentStyles.mainButtons}>
 
-                                <Text onPress={this.handleRestart} style={componentStyles.buttonText}>
-                                    Restart
+                            <Text onPress={this.handleClear} style={componentStyles.buttonText}>
+                                Clear
                                 </Text>
 
                         </View>
@@ -227,14 +204,14 @@ class InputSolve extends Component {
 
                     <View style={componentStyles.undoRedoButtonsContainer}>
                         <View style={componentStyles.mainButtons}>
-                                <Text onPress={this.handleUndo} style={componentStyles.buttonText}>
-                                    Undo
+                            <Text onPress={this.handleUndo} style={componentStyles.buttonText}>
+                                Undo
                                 </Text>
                         </View>
                         <View style={componentStyles.mainButtons}>
 
-                                <Text onPress={this.handleRedo} style={componentStyles.buttonText}>
-                                    Redo
+                            <Text onPress={this.handleRedo} style={componentStyles.buttonText}>
+                                Redo
                                 </Text>
 
                         </View>
@@ -242,16 +219,12 @@ class InputSolve extends Component {
 
                     <View style={componentStyles.solveButtonContainer}>
                         <View style={componentStyles.solveButton}>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigate('Solution', {
-                                        JSON_ListView_Clicked_Item: this.state,
-                                    })
-                                }
-                            >
 
-                                <Text style={componentStyles.buttonText}>Solve</Text>
-                            </TouchableOpacity>
+                            <Text onPress={() =>
+                                navigate('Solution', {
+                                    JSON_ListView_Clicked_Item: this.state,
+                                })
+                            } style={componentStyles.buttonText}>Solve</Text>
                         </View>
                     </View>
 
@@ -261,19 +234,34 @@ class InputSolve extends Component {
     }
 }
 
+var gridHeight = screenHeight * .56;
+var gridWidth = screenWidth;
+
+if (gridWidth < gridHeight) {
+    var widthToSet = '100%';
+    var itemWidth = '10%';
+    var itemHeight = screenWidth * .1;
+}
+else {
+    var widthToSet = gridHeight;
+    var itemWidth = widthToSet * .1;
+    var itemHeight = widthToSet * .1;
+}
+
 const containerStyles = StyleSheet.create({
     container: {
         flex: 100,
         justifyContent: 'center',
-        backgroundColor: '#1b262c'
+        alignItems: 'center',
+        backgroundColor: '#1b262c',
     },
     gridContainer: {
-        flex: 55,
+        flex: 60,
         justifyContent: 'space-around',
         alignContent: 'center',
         flexDirection: 'row',
         flexWrap: 'wrap',
-        width: '100%',
+        width: widthToSet,
     },
     numbersContainer: {
         flex: 10,
@@ -282,19 +270,19 @@ const containerStyles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         width: '100%',
-        alignContent: 'center',
     },
     allButtonsContainer: {
-        flex: 30,
+        flex: 25,
         justifyContent: 'center',
         alignContent: 'center',
+        alignItems: 'center',
     },
 });
 
 const componentStyles = StyleSheet.create({
     input: {
-        width: '10%',
-        height: gridWidth,
+        width: itemWidth,
+        height: itemHeight,
         padding: '.4%',
         margin: '.4%',
         textAlign: 'center',
@@ -304,16 +292,15 @@ const componentStyles = StyleSheet.create({
         borderRadius: 2,
     },
     numberInput: {
-        width: '10%',
-        height: gridWidth,
-        // backgroundColor: '#a1c4db',
+        width: itemWidth,
+        height: itemHeight,
         color: '#226897',
         backgroundColor: '#bbe1fa',
         textAlign: 'center',
         fontSize: 30,
         borderRadius: 2
     },
-    delRestartButtonsContainer: {
+    delClearButtonsContainer: {
         flex: 8,
         flexDirection: 'row',
         justifyContent: 'space-around',
@@ -325,6 +312,12 @@ const componentStyles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
+    solveButtonContainer: {
+        flex: 12,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+    },
     mainButtons: {
         flex: .5,
         textAlign: 'center',
@@ -335,26 +328,24 @@ const componentStyles = StyleSheet.create({
         marginRight: '5%',
         padding: '1%'
     },
-    solveButtonContainer: {
-        height: '30%',
-        flex: 19,
-        justifyContent: 'flex-start',
-        alignItems: 'center'
-    },
+    
     solveButton: {
-        marginTop: '3%',
-        padding: '3%',
-        paddingLeft: '10%',
-        paddingRight: '10%',
+        flex: .3,
+        textAlign: 'center',
         backgroundColor: '#305a75',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        margin: '3%',
+        padding: '2%',
+        width: '100%',
+        paddingLeft: '8%',
+        paddingRight: '8%',
     },
     buttonText: {
         fontSize: 25,
         textAlign: 'center',
-        color: '#BBE1FA'
+        color: '#BBE1FA',
+        width: '100%',
     }
 });
 
 export default InputSolve;
-

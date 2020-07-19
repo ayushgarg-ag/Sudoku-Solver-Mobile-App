@@ -23,6 +23,7 @@ function Header({ title, navigation }) {
 const styles = StyleSheet.create({
   header: {
     width: screenWidth,
+    // height: 56,
     flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'center',
