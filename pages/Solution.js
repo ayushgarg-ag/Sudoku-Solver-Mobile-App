@@ -49,25 +49,32 @@ class Solution extends Component {
         }
 
         const inputtedSudoku = new Sudoku(matrix);
-        inputtedSudoku.solve();
-        var solvedSudoku = inputtedSudoku.returnArray();
 
-        var solvedGrid = []
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j++) {
-                var extraMarginRight = 0;
-                var extraMarginBottom = 0;
-                var loc = i * 9 + j;
-                if (loc % 3 == 2 && loc % 9 != 8) {
-                    extraMarginRight = 5;
-                }
-                if (loc == 18 || loc == 45) {
-                    extraMarginBottom = 5;
-                }
+        if (!inputtedSudoku.validate()) {
+            var solvedGrid = <Text style={styles.invalid}>Invalid Sudoku. Please input another Sudoku.</Text>;
+        }
+        else {
 
-                solvedGrid.push(<Text key={i * 9 + j} style={[styles.input, { marginRight: extraMarginRight, marginBottom: extraMarginBottom }]}>
-                    {solvedSudoku[i][j]}
-                </Text>);
+            inputtedSudoku.solve();
+            var solvedSudoku = inputtedSudoku.returnArray();
+
+            var solvedGrid = []
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    var extraMarginRight = 0;
+                    var extraMarginBottom = 0;
+                    var loc = i * 9 + j;
+                    if (loc % 3 == 2 && loc % 9 != 8) {
+                        extraMarginRight = 5;
+                    }
+                    if (loc == 18 || loc == 45) {
+                        extraMarginBottom = 5;
+                    }
+
+                    solvedGrid.push(<Text key={i * 9 + j} style={[styles.input, { marginRight: extraMarginRight, marginBottom: extraMarginBottom }]}>
+                        {solvedSudoku[i][j]}
+                    </Text>);
+                }
             }
         }
 
@@ -127,6 +134,12 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         backgroundColor: '#DBDBD6',
+    },
+    invalid: {
+        color: 'white',
+        fontSize: 30,
+        marginTop: 100,
+        textAlign: 'center',
     },
 });
 

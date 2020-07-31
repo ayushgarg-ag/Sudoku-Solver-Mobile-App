@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, StyleSheet, Text, Button, TouchableOpacity, Dimensions } from 'react-native';
+import { View, TextInput, StyleSheet, Text, Button, TouchableOpacity, Dimensions, Keyboard } from 'react-native';
 import { ToggleButtonGroup } from 'react-bootstrap';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Octicons';
@@ -39,6 +39,7 @@ class InputSolve extends Component {
     }
 
     handleFocusedItem = (propertyName, event) => {
+        Keyboard.dismiss();
         if (this.focusedItem != null) {
             this['item-' + this.focusedItem].setNativeProps({
                 style: {
@@ -58,6 +59,7 @@ class InputSolve extends Component {
     }
 
     handleFocusedNumber = (propertyName, event) => {
+        Keyboard.dismiss();
         const numberToEnter = propertyName;
         if (this.focusedItem != null) {
             this.setState({ [`${this.focusedItem}`]: numberToEnter });

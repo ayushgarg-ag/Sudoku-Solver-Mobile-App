@@ -76,7 +76,46 @@ class Sudoku {
         else {
             return true;
         }
+
+    }
+
+    validate() {
+        for (x = 0; x < 9; x++) {
+            for (y = 0; y < 9; y++) {
+                var lists = this.createRCBLists(x, y);
+                var listR = lists[0];
+                var listC = lists[1];
+                var listB = lists[2];
+
+                var num = this.grid[x][y];
+
+                var countR = 0;
+                var countC = 0;
+                var countB = 0;
+
+                for (i = 0; i < listR.length; i++) {
+                    if (num == listR[i] && listR[i] != 0) {
+                        countR += 1;
+                    }
+                }
+                for (i = 0; i < listC.length; i++) {
+                    if (num == listC[i] && listC[i] != 0) {
+                        countC += 1;
+                    }
+                }
+                for (i = 0; i < listB.length; i++) {
+                    if (num == listB[i] && listB[i] != 0) {
+                        countB += 1;
+                    }
+                }
+
+                if (countR > 1 || countC > 1 || countB > 1) {
+                    return false;
+                }
+            }
+        }
         
+        return true;
     }
 
     locateEmpty() {
@@ -96,7 +135,7 @@ class Sudoku {
         }
         else {
             var x = emptyLoc[0];
-            var y = emptyLoc[1];   
+            var y = emptyLoc[1];
         }
 
         for (let i = 1; i < 10; i++) {
@@ -110,7 +149,7 @@ class Sudoku {
                 this.inputNum(x, y, 0);
             }
         }
-        
+
         return false;
     }
 

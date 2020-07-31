@@ -10,12 +10,21 @@ import AboutStack from './stacks/AboutStack';
 const RootDrawerNavigator = createDrawerNavigator({
   Sudoku: {
     screen: SudokuStack,
+    navigationOptions: {
+      drawerLabel: 'Sudoku Solver',
+    },
   },
   Instructions: {
     screen: InstructionsStack,
+    navigationOptions: {
+      drawerLabel: 'Instructions',
+    },
   },
   About: {
     screen: AboutStack,
+    navigationOptions: {
+      drawerLabel: 'About Us',
+    },
   },
 });
 
