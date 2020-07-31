@@ -4,6 +4,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
+// Custom Header component that appears in every page with a menu button
+// Clicking the menu button opens the drawer
+
 function Header({ title, navigation }) {
 
   const openMenu = () => {
@@ -23,7 +26,6 @@ function Header({ title, navigation }) {
 const styles = StyleSheet.create({
   header: {
     width: screenWidth,
-    // height: 56,
     flexDirection: 'row',
     alignSelf: 'stretch',
     alignItems: 'center',

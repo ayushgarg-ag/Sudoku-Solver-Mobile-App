@@ -1,24 +1,20 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 
+// Imports InputSolve and Solution pages
 import InputSolve from '../pages/InputSolve';
 import Solution from '../pages/Solution';
-import Header from '../header';
 
-const MenuIcon = ({ navigation }) => <Icon
-  name='three-bars'
-  size={30}
-  color='white'
-  style={{ paddingLeft: 10 }}
-// onPress={navigation.openDrawer()}
-/>;
+// Imports Header component
+import Header from '../components/Header';
 
-//import all the screens we are going to switch 
+// Creates a stack that houses the pages that involve sudoku
 const SudokuStack = createStackNavigator({
 
-  //Constant which holds all the screens like index of any book 
   InputSolve: {
     screen: InputSolve,
+
+    // Displays a custom Header component
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header title='Sudoku Solver Input' navigation={navigation} />
@@ -26,12 +22,13 @@ const SudokuStack = createStackNavigator({
     },
   },
 
-  // First entry by default to be our first screen 
-  // if we do not define initialRouteName
   Solution: { screen: Solution },
 },
   {
+    // Initializes the first page to be "InputSolve" within the stack
     initialRouteName: 'InputSolve',
   }
 );
+
+// Exports the stack to be used in the custom drawer
 export default SudokuStack;

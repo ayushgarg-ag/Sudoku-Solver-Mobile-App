@@ -1,21 +1,26 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import React from 'react';
 
+// Imports Instructions page
 import Instructions from '../pages/Instructions';
-import Header from '../header';
 
-//import all the screens we are going to switch 
+// Imports Header component
+import Header from '../components/Header';
+
+// Creates a stack that houses the "Instructions" page
 const InstructionsStack = createStackNavigator({
 
-  //Constant which holds all the screens like index of any book 
   Instructions: {
     screen: Instructions,
+
+    // Displays a custom Header component
     navigationOptions: ({ navigation }) => {
       return {
         headerTitle: () => <Header title='Instructions' navigation={navigation} />
       }
     },
   },
-
 });
+
+// Exports the stack to be used in the custom drawer
 export default InstructionsStack;

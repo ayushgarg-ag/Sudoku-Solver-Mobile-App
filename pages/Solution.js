@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import Sudoku from '../Sudoku';
-import InputSolve from './InputSolve';
-import { HeaderBackButton } from 'react-navigation-stack';
 
+// Variables that store the width and height of the user's screen
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
 var size;
@@ -17,6 +16,8 @@ var gridWidth = screenWidth / 10;
 
 
 class Solution extends Component {
+
+    // Defines the navigation bar on the Solution page
     static navigationOptions = {
         title: 'Sudoku Solver',
         headerStyle: { backgroundColor: '#226897' },
@@ -30,7 +31,8 @@ class Solution extends Component {
     };
 
     render() {
-        const { navigate } = this.props.navigation;
+
+        // Creates the matrix of the inputted numbers from InputSolve
         let matrix = [];
         for (let i = 0; i < 9; i++) {
             let matrixRow = [];
@@ -48,19 +50,24 @@ class Solution extends Component {
             matrix.push(matrixRow);
         }
 
+        // Creates a Sudoku object from the matrix
         const inputtedSudoku = new Sudoku(matrix);
 
+        // Displays error message if the inputted sudoku is not valid
         if (!inputtedSudoku.validate()) {
             var solvedGrid = <Text style={styles.invalid}>Invalid Sudoku. Please input another Sudoku.</Text>;
         }
         else {
 
+            // Uses the solve method of the sudoku class to construct the solved Sudoku
             inputtedSudoku.solve();
             var solvedSudoku = inputtedSudoku.returnArray();
 
             var solvedGrid = []
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
+
+                    // Maintains the same extra margins from InputSolve
                     var extraMarginRight = 0;
                     var extraMarginBottom = 0;
                     var loc = i * 9 + j;
@@ -71,13 +78,17 @@ class Solution extends Component {
                         extraMarginBottom = 5;
                     }
 
-                    solvedGrid.push(<Text key={i * 9 + j} style={[styles.input, { marginRight: extraMarginRight, marginBottom: extraMarginBottom }]}>
-                        {solvedSudoku[i][j]}
-                    </Text>);
+                    // Pushes the numbers from the solved Sudoku onto the grid
+                    solvedGrid.push(
+                        <Text key={i * 9 + j} style={[styles.input, { marginRight: extraMarginRight, marginBottom: extraMarginBottom }]}>
+                            {solvedSudoku[i][j]}
+                        </Text>
+                    );
                 }
             }
         }
 
+        // Defines what appears on the screen
         return (
             <View style={styles.container}>
                 <View style={styles.gridContainer}>
@@ -88,20 +99,7 @@ class Solution extends Component {
     }
 }
 
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         // margin: 50,
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     TextStyle: {
-//         fontSize: 23,
-//         textAlign: 'center',
-//         color: '#f00',
-//     },
-// });
+// CSS styles that are applied to the components on the page
 const styles = StyleSheet.create({
     container: {
         flex: 100,
@@ -140,7 +138,8 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginTop: 100,
         textAlign: 'center',
-    },
+    }
 });
 
+// Exports the page to be used in other pages of the app
 export default Solution;
