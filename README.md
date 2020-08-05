@@ -16,7 +16,7 @@
 <a id="overview"></a>
 
 ## Brief Overview
-This project is a Sudoku solver mobile application, which utilizes the React Native framework. The app can run on iOS and Android devices and offers users the ability to solve any Sudoku as a means of checking their own solutions or quickly solving difficult puzzles they encounter. The overall goal of this application is to provide numerous options when inputting the Sudoku, coupled with an intuitive interface and simple aesthetic.
+This project is a Sudoku solver mobile application, which utilizes the React Native framework. The app can run on iOS and Android devices and offers users the ability to solve any Sudoku as a means of checking their own solutions or quickly solving difficult puzzles they encounter. The overall goal of this application is to provide numerous options when inputting the Sudoku, coupled with an intuitive interface and unique aesthetic.
 
 <a id="about"></a>
 
