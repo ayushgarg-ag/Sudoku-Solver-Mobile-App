@@ -43,19 +43,19 @@ agss.projects@gmail.com.
 ## App Walkthrough
 
 ### Inputting a Sudoku
-<img src="/images/InputSolve.png" width="50%">
+<img src="/images/InputSolve.png" width="25%">
 
 ### Finished Solution
-<img src="/images/Solution.png" width="50%">
+<img src="/images/Solution.png" width="25%">
 
 ### Side Menu
-<img src="/images/SideMenu.png" width="50%">
+<img src="/images/SideMenu.png" width="25%">
 
 ### About Us
-<img src="images/About.png" width="50%">
+<img src="images/About.png" width="25%">
 
 ### Instructions
-<img src="images/Instructions.png" width="50%">
+<img src="images/Instructions.png" width="25%">
 
 
 <a id="technology"></a>
@@ -77,15 +77,15 @@ agss.projects@gmail.com.
 
 + *Event handlers* are placed as methods in the component class to take the appropriate action after user interaction with the Sudoku grid or option buttons
 
-+ *React Native lifecycle* is utilized to monitor the mounting, updating, and unmounting phases. The main methods called in this process for our purposes is the `constructor()`, `render()`, and `componentDidMount()` methods.
++ *React Native lifecycle* is utilized to monitor the mounting, updating, and unmounting phases. The main methods called in this process for our purposes are the `constructor()`, `render()`, and `componentDidMount()` methods.
 
 + *Props* are passed into our components to send along data, define the constructor, and re-use code in many different parts of the app
 
-+ *State* stored property values in the constructor to be used and changed through events and event handlers. State variables included values for all 81 cells, the user’s input history, and the item being focused on at the moment
++ *State* stores property values in the constructor to be used and changed through events and event handlers. State variables included values for all 81 cells, the user’s input history, and the item being focused on at the moment
 
 + *Drawer navigation* is used as the primary method of navigation in the application. The root drawer navigator contains each stack navigator, which contains pages. The drawer is used to create a seamless side menu bar that can be opened by clicking the menu icon
 
-+ *Stack navigation* is used to navigate between multiple layers of pages. In this application, only one stack, SudokuStack, contains multiple pages. Once a user inputs a Sudoku, stack navigation is utilized to pass information from the input page to the solution page. This information is then used to display the correct solution. The other stacks are used to create consistent layouts between the pages.
++ *Stack navigation* is used to navigate between multiple layers of pages. In this application, only one stack, `SudokuStack`, contains multiple pages. Once a user inputs a Sudoku, stack navigation is utilized to pass information from the input page to the solution page. This information is then used to display the correct solution. The other stacks are used to create consistent layouts between the pages.
 
 <a id="expo"></a>
 
@@ -124,13 +124,13 @@ agss.projects@gmail.com.
 + Input any valid Sudoku and the solver will create a correct solution that follows all Sudoku rules. The solution will return very quickly, even to the world’s hardest Sudoku!
 
 ### Options
-+ The "Undo" and "Redo" buttons revert changes made on the grid to simplify the process and quickly fix errors in their inputs
-+ The "Clear" button erases all inputted numbers in case the user would like to restart the process of inputting
-+ The "Delete" button erases an inputted number in a selected cell if an error has been made while inputting
++ The *"Undo"* and *"Redo"* buttons revert changes made on the grid to simplify the process and quickly fix errors in their inputs
++ The *"Clear"* button erases all inputted numbers in case the user would like to restart the process of inputting
++ The *"Delete"* button erases an inputted number in a selected cell if an error has been made while inputting
 
 ### Menu
 + The menu icon at the top left of the screen can be clicked to open the side menu, which showcases three separate pages to which users can navigate
-+ Each page includes the menu icon for ease of accessibility
++ Each page includes the menu icon for ease of access
 
 <a id="files"></a>
 
@@ -139,22 +139,21 @@ agss.projects@gmail.com.
 ### `/App.js`
 This file contains the root code of all pages and stacks of the application. Every stack is housed within a drawer navigator inside this file.
 
-### `/pages/InputSolve.js`  and  `/pages/Solution.js`
+#### `/pages/InputSolve.js`  and  `/pages/Solution.js`
 `InputSolve.js` initializes all the states of each cell in the grid while also handling specific events in the cells. Selecting the numbers 1-9 while focused on a certain cell changes the state of that cell. 
 
-Once the "Solve" button is clicked, the states are passed using stack navigation to `Solution.js`, which imports the Sudoku class from Sudoku.js and uses the solve method to display a solution on the screen.
+Once the "Solve" button is clicked, the states are passed using stack navigation to `Solution.js`, which imports the Sudoku class from `Sudoku.js` and uses the solve method to display a solution on the screen.
 
-
-### `/pages/About.js`  and  `/pages/Instructions.js`
+#### `/pages/About.js`  and  `/pages/Instructions.js`
 These files contain information regarding the creators of the application (About Us) and the instructions for how to use the application.
 
-### `/stacks`
-This folder contains all the stack navigators. `SudokuStack.js` contains the two pages that involve solving a sudoku with InputSolve being the default page, while the other two stacks exist to preserve a consistent layout among the pages.
+#### `/stacks`
+This folder contains all the stack navigators. `SudokuStack.js` contains the two pages that involve solving a sudoku with `InputSolve.js` being the default page, while the other two stacks exist to preserve a consistent layout among the pages.
 
-### `/components/Header.js`
+#### `/components/Header.js`
 This file contains a custom header component. This component fills a designated space at the top of the screen and houses a distinct title and a menu icon, which has its own event handlers.
 
-### `/Sudoku.js`
+#### `/Sudoku.js`
 This file contains the Sudoku class. The Sudoku object is initialized with a passed 2D list. This list is then used to accomplish two main goals of solving the passed list and identifying if the passed list is a valid Sudoku. 
 
 Solving: The solver utilizes a backtracking algorithm. Using the numbers already in the cell, it iterates over every cell and attempts to fill each one with a valid number. If the inputted number results in an invalid Sudoku, then a different valid number takes its place. The grid is then filled recursively until all cells contain a valid number. This algorithm follows depth-first traversing, where it attempts to input as many valid numbers as possible before backtracking.
