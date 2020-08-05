@@ -132,6 +132,7 @@ agss.projects@gmail.com.
 + The menu icon at the top left of the screen can be clicked to open the side menu, which showcases three separate pages to which users can navigate
 + Each page includes the menu icon for ease of access
 
+
 <a id="files"></a>
 
 ## File Descriptions

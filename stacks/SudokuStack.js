@@ -30,5 +30,4 @@ const SudokuStack = createStackNavigator({
   }
 );
 
-// Exports the stack to be used in the custom drawer
 export default SudokuStack;

@@ -217,5 +217,4 @@ class Sudoku {
     }
 }
 
-// Exports the class to be used in the Solution page
 export default Sudoku;

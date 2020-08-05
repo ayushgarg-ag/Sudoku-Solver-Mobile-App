@@ -404,5 +404,4 @@ const componentStyles = StyleSheet.create({
     }
 });
 
-// Exports the page to be used in other pages of the app
 export default InputSolve;

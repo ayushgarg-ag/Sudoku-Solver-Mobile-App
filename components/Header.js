@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+// Gets the width of the user's screen
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 // Custom Header component that appears in every page with a menu button
@@ -9,6 +10,7 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 
 function Header({ title, navigation }) {
 
+  // Opens the drawer when the icon is pressed
   const openMenu = () => {
     navigation.openDrawer();
   }
@@ -23,6 +25,7 @@ function Header({ title, navigation }) {
   );
 }
 
+// CSS styles that are applied to the components on the page
 const styles = StyleSheet.create({
   header: {
     width: screenWidth,

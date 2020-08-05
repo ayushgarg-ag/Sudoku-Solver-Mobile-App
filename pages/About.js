@@ -71,5 +71,4 @@ const styles = StyleSheet.create({
     }
 });
 
-// Exports the page to be used in other pages of the app
 export default About;

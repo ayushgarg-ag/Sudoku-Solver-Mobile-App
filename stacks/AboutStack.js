@@ -22,5 +22,4 @@ const AboutStack = createStackNavigator({
   },
 });
 
-// Exports the stack to be used in the custom drawer
 export default AboutStack;
