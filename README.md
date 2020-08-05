@@ -136,7 +136,7 @@ agss.projects@gmail.com.
 
 ## File Descriptions
 
-### `/App.js`
+#### `/App.js`
 This file contains the root code of all pages and stacks of the application. Every stack is housed within a drawer navigator inside this file.
 
 #### `/pages/InputSolve.js`  and  `/pages/Solution.js`
